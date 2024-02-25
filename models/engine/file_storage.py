@@ -64,7 +64,7 @@ class FileStorage:
              count = sum(1 for obj in self.__objects.values() if isinstance(obj, cls))
          else:
              count = len(self.__objects)
-        return count
+         return count
 
     def reload(self):
         """deserializes the JSON file to __objects"""
