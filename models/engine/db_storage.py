@@ -32,7 +32,7 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        self.__engine = create_engine('mysql+pymysql://{}:{}@{}/{}'.
                                       format(HBNB_MYSQL_USER,
                                              HBNB_MYSQL_PWD,
                                              HBNB_MYSQL_HOST,
@@ -63,6 +63,25 @@ class DBStorage:
         """delete from the current database session obj if not None"""
         if obj is not None:
             self.__session.delete(obj)
+
+    def get(self, cls, id):
+         """
+         Retrieves one object based on class and ID
+         """
+         return self.__session.query(cls).get(id)
+
+    def count(self, cls=None):
+        """
+        Counts the number of objects in storage
+        If cls is provided, counts objects of that class
+        """
+        if cls:
+            return self.__session.query(cls).count()
+        else:
+            total_count = 0
+            for class_name in classes.values():
+                total_count += self.__session.query(class_name).count()
+            return total_count
 
     def reload(self):
         """reloads data from the database"""
