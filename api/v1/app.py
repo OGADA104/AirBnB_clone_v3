@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""create app """
 import os
 from models import storage
 from api.v1.views import app_views
@@ -16,6 +17,7 @@ def teardown_app_context(exception):
 
 
 if __name__ == "__main__":
+    """run if main"""
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
     port = int(os.environ.get('HBNB_API_PORT', 5000))
     threaded = True
