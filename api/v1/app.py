@@ -20,6 +20,7 @@ def teardown_app_context(exception):
 def page_not_found(e):
     return jsonify({"error": "Not found"}), 404
 
+
 if __name__ == "__main__":
     """run if main"""
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
