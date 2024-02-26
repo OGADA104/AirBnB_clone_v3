@@ -13,6 +13,7 @@ def get_cities():
     cities = storage.all(City).values()
     return jsonify([city.to_dict() for city in cities])
 
+
 @app_views.route('/cities/<id>', methods=['GET'])
 def get_city_id(id):
     """gets a city identified by id"""
@@ -22,6 +23,7 @@ def get_city_id(id):
         return jsonify([city])
     else:
         return jsonify({"error": "Not found"}), 404
+
 
 @app_views.route('/cities/<id>', methods=['DELETE'])
 def delete_city(id):
@@ -36,6 +38,7 @@ def delete_city(id):
             storage.delete(obj)
             storage.save()
     return jsonify({}), 200
+
 
 @app_views.route('/cities/', methods=['POST'])
 def create_city():
@@ -52,6 +55,7 @@ def create_city():
     storage.save()
 
     return jsonify(new_city.to_dict()), 201
+
 
 @app_views.route('/cities/<id>', methods=['PUT'])
 def update_city(id):
