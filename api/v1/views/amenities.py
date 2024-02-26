@@ -11,7 +11,7 @@ from flask import request, abort
 def get_amenity():
     """return a json on states"""
     amenities = storage.all(Amenity).values()
-    return jsonify([Amenity.to_dict() for amenity in amenities])
+    return jsonify([amenity.to_dict() for amenity in amenities])
 
 
 @app_views.route('/amenities/<id>', methods=['GET'])
@@ -31,10 +31,8 @@ def delete_amenity(id):
     amenity = storage.get(Amenity, id)
     if amenity is None:
         abort(404)
-    
     storage.delete(amenity)
     storage.save()
-    
     return jsonify({}), 200
 
 
