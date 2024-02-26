@@ -25,18 +25,16 @@ def get_state_id(id):
         return jsonify({"error": "Not found"}), 404
 
 
-@app_views.route('/state/<id>', methods=['DELETE'])
+@app_views.route('/state/<id>', methods=['GET', 'DELETE'])
 def delete_state(id):
     """deletes a state identified by id"""
-    states = storage.all("State").values()
-    state = [obj.to_dict() for obj in states if obj.id == id]
-    if state == []:
+    state = storage.get(State, id)
+    if state is None:
         abort(404)
-    state.remove(state[0])
-    for obj in states:
-        if obj.id == id:
-            storage.delete(obj)
-            storage.save()
+    
+    storage.delete(state)
+    storage.save()
+    
     return jsonify({}), 200
 
 
