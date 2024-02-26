@@ -2,7 +2,7 @@
 """states view module"""
 from models.city import City
 from models import storage
-from flask import jsonify
+from flask import jsonify, abort
 from api.v1.views import app_views
 from flask import request
 
